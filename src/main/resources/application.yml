@@ -1,0 +1,22 @@
+# app
+spring:
+  application:
+    name: spring-publisher
+  mvc:
+    problemdetails:
+      enabled: true
+
+# login
+login:
+  admin:
+    username: admin
+    password: 123
+    role: ADMIN
+
+# api documentation
+springdoc:
+  override-with-generic-response: true
+  swagger-ui:
+    path: /doc.html
+  api-docs:
+    resolve-schema-properties: true
