@@ -1,4 +1,4 @@
-package cleverton.heusner.service;
+package cleverton.heusner.service.idformatter;
 
 import org.springframework.stereotype.Service;
 

@@ -6,6 +6,8 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.stereotype.Component;
 
+import static cleverton.heusner.constant.message.validation.CommonMessageValidation.*;
+
 @Component
 public class IdValidator extends Validator implements ConstraintValidator<Id, String> {
 
@@ -14,21 +16,21 @@ public class IdValidator extends Validator implements ConstraintValidator<Id, St
         this.context = context;
 
         if (StringUtils.isBlank(id)) {
-            return createContext("NotNull.parameter.id");
+            return createContext(NOT_NULL_PARAMETER_ID);
         }
 
         long parsedId;
         try {
             parsedId = Long.parseLong(id);
         } catch (final NumberFormatException e) {
-            return createContext("String.parameter.id");
+            return createContext(STRING_PARAMETER_ID);
         }
 
         if (parsedId == 0) {
-            return createContext("Zero.parameter.id");
+            return createContext(ZERO_PARAMETER_ID);
         }
         else if (parsedId < 0) {
-            return createContext("Negative.parameter.id");
+            return createContext(NEGATIVE_PARAMETER_ID);
         }
 
         return true;

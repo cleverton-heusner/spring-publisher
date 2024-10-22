@@ -5,19 +5,16 @@ import cleverton.heusner.exception.resource.ResourceInUseException;
 import cleverton.heusner.exception.resource.ResourceNotFoundException;
 import cleverton.heusner.model.Author;
 import cleverton.heusner.repository.author.AuthorRepository;
-import cleverton.heusner.service.IdFormatterService;
+import cleverton.heusner.service.idformatter.IdFormatterService;
 import cleverton.heusner.service.message.MessageService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static cleverton.heusner.constant.message.AuthorMessage.*;
+
 @Service
 public class AuthorServiceImpl implements AuthorService {
-
-    public static final String AUTHOR_IN_USE_MESSAGE = "inUse.author";
-    public static final String AUTHOR_NOT_FOUND_BY_NAME_MESSAGE = "notFound.author.name";
-    private static final String AUTHOR_NOT_FOUND_BY_ID_MESSAGE = "notFound.author.id";
-    private static final String AUTHOR_EXISTING_MESSAGE = "existing.author";
 
     private final AuthorRepository authorRepository;
     private final MessageService messageService;
@@ -36,10 +33,7 @@ public class AuthorServiceImpl implements AuthorService {
     public Author findById(final String id) {
         return authorRepository.findById(idFormatterService.formatId(id))
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        messageService.getMessage(
-                                AUTHOR_NOT_FOUND_BY_ID_MESSAGE,
-                                id)
-                        )
+                        messageService.getMessage(AUTHOR_NOT_FOUND_BY_NAME_MESSAGE, id))
                 );
     }
 
@@ -64,9 +58,7 @@ public class AuthorServiceImpl implements AuthorService {
     public Author findByName(final String name) {
         return authorRepository.findByNameIgnoreCase(name.strip())
                 .orElseThrow(() -> new ResourceNotFoundException(
-                                messageService.getMessage(
-                                        AUTHOR_NOT_FOUND_BY_NAME_MESSAGE,
-                                        name)
+                                messageService.getMessage(AUTHOR_NOT_FOUND_BY_NAME_MESSAGE, name)
                         )
                 );
     }

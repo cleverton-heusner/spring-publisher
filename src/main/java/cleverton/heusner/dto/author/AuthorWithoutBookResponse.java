@@ -6,24 +6,25 @@ import org.springframework.context.annotation.PropertySource;
 
 import java.time.LocalDateTime;
 
+import static cleverton.heusner.constant.documentation.schema.AuthorSchemaDoc.*;
 import static cleverton.heusner.configuration.message.MessageBasename.SCHEMA_MESSAGES;
 import static cleverton.heusner.configuration.message.MessageConfiguration.ENCODING;
 import static cleverton.heusner.configuration.message.MessageConfiguration.FILE_FORMAT;
 
-@Schema(description = "author.without.book")
+@Schema(description = AUTHOR_WITHOUT_BOOK)
 @Data
 @PropertySource(value = SCHEMA_MESSAGES + FILE_FORMAT, encoding = ENCODING)
 public class AuthorWithoutBookResponse {
 
-    @Schema(description = "author.id")
+    @Schema(description = AUTHOR_ID)
     protected Long id;
 
-    @Schema(description = "author.name")
+    @Schema(description = AUTHOR_NAME)
     protected String name;
 
-    @Schema(description = "author.creation.date")
+    @Schema(description = AUTHOR_CREATION_DATE)
     protected LocalDateTime createdDate;
 
-    @Schema(description = "author.modification.last.date")
+    @Schema(description = AUTHOR_MODIFICATION_LAST_DATE)
     protected LocalDateTime lastModifiedDate;
 }

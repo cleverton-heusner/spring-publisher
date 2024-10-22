@@ -7,7 +7,7 @@ import cleverton.heusner.model.Author;
 import cleverton.heusner.model.Book;
 import cleverton.heusner.repository.book.BookRepository;
 import cleverton.heusner.repository.book.ExistingBookRepository;
-import cleverton.heusner.service.IdFormatterService;
+import cleverton.heusner.service.idformatter.IdFormatterService;
 import cleverton.heusner.service.author.AuthorService;
 import cleverton.heusner.service.author.AuthorWithBookService;
 import cleverton.heusner.service.message.MessageService;
@@ -16,15 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static cleverton.heusner.service.author.AuthorServiceImpl.AUTHOR_IN_USE_MESSAGE;
-import static cleverton.heusner.service.author.AuthorServiceImpl.AUTHOR_NOT_FOUND_BY_NAME_MESSAGE;
+import static cleverton.heusner.constant.message.AuthorMessage.AUTHOR_IN_USE_MESSAGE;
+import static cleverton.heusner.constant.message.AuthorMessage.AUTHOR_NOT_FOUND_BY_NAME_MESSAGE;
+import static cleverton.heusner.constant.message.BookMessage.*;
 
 @Service
 public class BookServiceImpl implements BookService {
-
-    private static final String BOOK_WITH_ISBN_ALREADY_EXISTING_MESSAGE = "existing.book.isbn";
-    private static final String BOOK_NOT_FOUND_BY_ID_MESSAGE = "notFound.book.id";
-    private static final String BOOK_NOT_FOUND_BY_ISBN_MESSAGE = "notFound.book.isbn";
 
     private final BookRepository bookRepository;
     private final ExistingBookRepository existingBookRepository;

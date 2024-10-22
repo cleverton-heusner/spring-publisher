@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
+import static cleverton.heusner.constant.message.validation.BookMessageValidation.INVALID_BOOK_ISBN;
+import static cleverton.heusner.constant.message.validation.BookMessageValidation.NOT_BLANK_BOOK_ISBN;
+
 @Component
 public class Isbn13Validator extends Validator implements ConstraintValidator<Isbn13, String> {
 
@@ -22,9 +25,9 @@ public class Isbn13Validator extends Validator implements ConstraintValidator<Is
         this.context = context;
 
         if (StringUtils.isBlank(isbn)) {
-            return createContext("NotBlank.book.isbn");
+            return createContext(NOT_BLANK_BOOK_ISBN);
         } else if (!isPatternValid(isbn) || !isChecksumValid(isbn)) {
-            return createContext("Invalid.book.isbn", isbn);
+            return createContext(INVALID_BOOK_ISBN, isbn);
         }
 
         return true;
