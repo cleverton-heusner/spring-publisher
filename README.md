@@ -16,5 +16,8 @@
 2. From here, you can access the documentation at http://localhost:8080/doc.html. The username is **admin** and the 
    password is **123**.
 
+## Testing
+- To run mutation testing, execute the command ```./mvnw test-compile org.pitest:pitest-maven:mutationCoverage```.
+
 ## Links
 - [ISBN 13 Generator](https://generate.plus/en/number/isbn)

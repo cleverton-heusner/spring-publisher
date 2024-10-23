@@ -1,7 +1,7 @@
 package cleverton.heusner.service.author;
 
 import cleverton.heusner.repository.author.AuthorRepository;
-import cleverton.heusner.service.IdFormatterService;
+import cleverton.heusner.service.idformatter.IdFormatterService;
 import cleverton.heusner.service.ServiceConfiguration;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;

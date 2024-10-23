@@ -2,7 +2,7 @@ package cleverton.heusner.service.book;
 
 import cleverton.heusner.repository.book.BookRepository;
 import cleverton.heusner.repository.book.ExistingBookRepository;
-import cleverton.heusner.service.IdFormatterService;
+import cleverton.heusner.service.idformatter.IdFormatterService;
 import cleverton.heusner.service.ServiceConfiguration;
 import cleverton.heusner.service.author.AuthorService;
 import cleverton.heusner.service.author.AuthorWithBookService;

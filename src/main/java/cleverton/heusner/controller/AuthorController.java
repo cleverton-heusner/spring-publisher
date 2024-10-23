@@ -28,13 +28,15 @@ import java.util.List;
 import static cleverton.heusner.configuration.message.MessageBasename.API_MESSAGES;
 import static cleverton.heusner.configuration.message.MessageConfiguration.ENCODING;
 import static cleverton.heusner.configuration.message.MessageConfiguration.FILE_FORMAT;
-import static cleverton.heusner.controller.HttpStatusCode.*;
+import static cleverton.heusner.constant.documentation.api.AuthorApiDoc.*;
+import static cleverton.heusner.constant.api.HttpStatusCode.*;
+import static cleverton.heusner.constant.message.validation.AuthorMessageValidation.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Validated
 @Tag(
-        name = "author.tag.name",
-        description = "author.tag.description"
+        name = AUTHOR_TAG_NAME,
+        description = AUTHOR_TAG_DESCRIPTION
 )
 @RestController
 @RequestMapping("authors")
@@ -54,13 +56,13 @@ public class AuthorController {
     }
 
     @Operation(
-            summary = "author.operation.find-by-id.summary",
-            description = "author.operation.find-by-id.description"
+            summary = AUTHOR_OPERATION_FIND_BY_ID_SUMMARY,
+            description = AUTHOR_OPERATION_FIND_BY_ID_DESCRIPTION
     )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = OK,
-                    description = "author.response.find-by-id.ok.description",
+                    description = AUTHOR_RESPONSE_FIND_BY_ID_OK_DESCRIPTION,
                     content = {@Content(
                             mediaType = APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = AuthorWithBookResponse.class)
@@ -68,7 +70,7 @@ public class AuthorController {
                     }),
             @ApiResponse(
                     responseCode = NOT_FOUND,
-                    description = "author.response.find-by-id.not-found.description",
+                    description = AUTHOR_RESPONSE_FIND_BY_ID_NOT_FOUND_DESCRIPTION,
                     content = {@Content(
                             mediaType = APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ProblemDetail.class)
@@ -76,7 +78,7 @@ public class AuthorController {
                     }),
             @ApiResponse(
                     responseCode = BAD_REQUEST,
-                    description = "author.response.find-by-id.bad-request.description.id",
+                    description = AUTHOR_RESPONSE_FIND_BY_ID_BAD_REQUEST_DESCRIPTION_ID,
                     content = {@Content(
                             mediaType = APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ProblemDetail.class)
@@ -95,13 +97,13 @@ public class AuthorController {
         return ResponseEntity.ok(authorWithBookResponse);
     }
     @Operation(
-            summary = "author.operation.find-by-name.summary",
-            description = "author.operation.find-by-name.description"
+            summary = AUTHOR_OPERATION_FIND_BY_NAME_SUMMARY,
+            description = AUTHOR_OPERATION_FIND_BY_NAME_DESCRIPTION
     )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = OK,
-                    description = "author.response.find-by-name.ok.description",
+                    description = AUTHOR_RESPONSE_FIND_BY_NAME_OK_DESCRIPTION,
                     content = { @Content(
                             mediaType = APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = AuthorWithBookResponse.class)
@@ -109,7 +111,7 @@ public class AuthorController {
             }),
             @ApiResponse(
                     responseCode = NOT_FOUND,
-                    description = "author.response.find-by-name.not-found.description",
+                    description = AUTHOR_RESPONSE_FIND_BY_NAME_NOT_FOUND_DESCRIPTION,
                     content = { @Content(
                             mediaType = APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ProblemDetail.class)
@@ -117,7 +119,7 @@ public class AuthorController {
             }),
             @ApiResponse(
                     responseCode = BAD_REQUEST,
-                    description = "author.response.find-by-name.bad-request.description.name",
+                    description = AUTHOR_RESPONSE_FIND_BY_NAME_BAD_REQUEST_DESCRIPTION_NAME,
                     content = { @Content(
                             mediaType = APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ProblemDetail.class)
@@ -128,20 +130,24 @@ public class AuthorController {
     public ResponseEntity<AuthorWithBookResponse> findByName(@Valid
                                                                  @PathVariable
                                                                  @Parameter(required = true)
-                                                                 @Size(min = 1, max = 20, message = "{Size.author.name}")
+                                                                 @Size(
+                                                                         min = AUTHOR_NAME_MIN_SIZE,
+                                                                         max = AUTHOR_NAME_MAX_SIZE,
+                                                                         message = SIZE_AUTHOR_NAME
+                                                                 )
                                                                  final String name) {
         final var authorWithBookResponse = authorResponseMapper.toAuthorWithBookResponse(authorService.findByName(name));
         return ResponseEntity.ok(authorWithBookResponse);
     }
 
     @Operation(
-            summary = "author.operation.create.summary",
-            description = "author.operation.create.description"
+            summary = AUTHOR_OPERATION_CREATE_SUMMARY,
+            description = AUTHOR_OPERATION_CREATE_DESCRIPTION
     )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = CREATED,
-                    description = "author.operation.created.description",
+                    description = AUTHOR_OPERATION_CREATED_DESCRIPTION,
                     content = {@Content(
                             mediaType = APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = AuthorWithBookResponse.class)
@@ -149,7 +155,7 @@ public class AuthorController {
                     }),
             @ApiResponse(
                     responseCode = BAD_REQUEST,
-                    description = "author.response.create.bad-request.description.name",
+                    description = AUTHOR_RESPONSE_CREATE_BAD_REQUEST_DESCRIPTION_NAME,
                     content = {@Content(
                             mediaType = APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ProblemDetail.class)
@@ -157,7 +163,7 @@ public class AuthorController {
                     }),
             @ApiResponse(
                     responseCode = CONFLICT,
-                    description = "author.response.create.conflict.description",
+                    description = AUTHOR_RESPONSE_CREATE_CONFLICT_DESCRIPTION,
                     content = {@Content(
                             mediaType = APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ProblemDetail.class)
@@ -173,13 +179,13 @@ public class AuthorController {
     }
 
     @Operation(
-            summary = "author.operation.find-all.summary",
-            description = "author.operation.find-all.description"
+            summary = AUTHOR_OPERATION_FIND_ALL_SUMMARY,
+            description = AUTHOR_OPERATION_FIND_ALL_DESCRIPTION
     )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = OK,
-                    description = "author.response.find-all.ok.description",
+                    description = AUTHOR_RESPONSE_FIND_ALL_OK_DESCRIPTION,
                     content = { @Content(
                             mediaType = APPLICATION_JSON_VALUE,
                             array = @ArraySchema(schema = @Schema(implementation = AuthorWithBookResponse.class))
@@ -195,17 +201,17 @@ public class AuthorController {
     }
 
     @Operation(
-            summary = "author.operation.delete-by-id.summary",
-            description = "author.operation.delete-by-id.description"
+            summary = AUTHOR_OPERATION_DELETE_BY_ID_SUMMARY,
+            description = AUTHOR_OPERATION_DELETE_BY_ID_DESCRIPTION
     )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = NO_CONTENT,
-                    description = "author.response.delete-by-id.no-content.description"
+                    description = AUTHOR_RESPONSE_DELETE_BY_ID_NO_CONTENT_DESCRIPTION
             ),
             @ApiResponse(
                     responseCode = NOT_FOUND,
-                    description = "author.response.delete-by-id.not-found.description",
+                    description = AUTHOR_RESPONSE_DELETE_BY_ID_NOT_FOUND_DESCRIPTION,
                     content = {@Content(
                             mediaType = APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ProblemDetail.class)
@@ -213,7 +219,7 @@ public class AuthorController {
                     }),
             @ApiResponse(
                     responseCode = BAD_REQUEST,
-                    description = "author.response.delete-by-id.bad-request.description.id",
+                    description = AUTHOR_RESPONSE_DELETE_BY_ID_BAD_REQUEST_DESCRIPTION_ID,
                     content = {@Content(
                             mediaType = APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ProblemDetail.class)

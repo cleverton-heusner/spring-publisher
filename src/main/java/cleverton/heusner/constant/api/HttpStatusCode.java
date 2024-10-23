@@ -1,4 +1,4 @@
-package cleverton.heusner.controller;
+package cleverton.heusner.constant.api;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
