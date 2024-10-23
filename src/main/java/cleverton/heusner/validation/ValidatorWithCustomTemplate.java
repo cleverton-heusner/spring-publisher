@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public abstract class Validator {
+public abstract class ValidatorWithCustomTemplate {
 
     @Autowired
     private MessageService messageService;

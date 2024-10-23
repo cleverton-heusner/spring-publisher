@@ -1,7 +1,7 @@
 package cleverton.heusner.mapper.author;
 
-import cleverton.heusner.model.Author;
 import cleverton.heusner.dto.author.AuthorCreationRequest;
+import cleverton.heusner.model.Author;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -13,6 +13,7 @@ public interface AuthorCreationRequestMapper {
 
     @Mappings({
             @Mapping(source = "name", target = "name"),
+            @Mapping(source = "birthDate", target = "birthDate"),
 
             @Mapping(target = "id", ignore = true),
             @Mapping(target = "createdDate", ignore = true),
