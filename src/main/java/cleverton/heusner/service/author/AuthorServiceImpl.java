@@ -39,11 +39,11 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Author register(final Author author) {
-        exists(author);
+        throwExistingResourceExceptionIfExistingAuthor(author);
         return authorRepository.save(author);
     }
 
-    private void exists(final Author author) {
+    private void throwExistingResourceExceptionIfExistingAuthor(final Author author) {
         final var foundAuthorOptional = authorRepository.findByNameIgnoreCase(author.getName().strip());
 
         if (foundAuthorOptional.isPresent()) {

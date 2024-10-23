@@ -6,6 +6,10 @@ spring:
     problemdetails:
       enabled: true
 
+# author
+author:
+  age-of-majority: 18
+
 # login
 login:
   admin:

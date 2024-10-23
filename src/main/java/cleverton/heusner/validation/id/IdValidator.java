@@ -1,6 +1,6 @@
 package cleverton.heusner.validation.id;
 
-import cleverton.heusner.validation.Validator;
+import cleverton.heusner.validation.ValidatorWithCustomTemplate;
 import io.micrometer.common.util.StringUtils;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import static cleverton.heusner.constant.message.validation.CommonMessageValidation.*;
 
 @Component
-public class IdValidator extends Validator implements ConstraintValidator<Id, String> {
+public class IdValidator extends ValidatorWithCustomTemplate implements ConstraintValidator<Id, String> {
 
     @Override
     public boolean isValid(final String id, final ConstraintValidatorContext context) {

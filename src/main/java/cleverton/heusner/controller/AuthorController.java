@@ -29,8 +29,8 @@ import static cleverton.heusner.configuration.message.MessageBasename.API_MESSAG
 import static cleverton.heusner.configuration.message.MessageConfiguration.ENCODING;
 import static cleverton.heusner.configuration.message.MessageConfiguration.FILE_FORMAT;
 import static cleverton.heusner.constant.documentation.api.AuthorApiDoc.*;
-import static cleverton.heusner.constant.message.validation.AuthorMessageValidation.SIZE_AUTHOR_NAME;
 import static cleverton.heusner.constant.api.HttpStatusCode.*;
+import static cleverton.heusner.constant.message.validation.AuthorMessageValidation.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Validated
@@ -130,7 +130,11 @@ public class AuthorController {
     public ResponseEntity<AuthorWithBookResponse> findByName(@Valid
                                                                  @PathVariable
                                                                  @Parameter(required = true)
-                                                                 @Size(min = 1, max = 20, message = SIZE_AUTHOR_NAME)
+                                                                 @Size(
+                                                                         min = AUTHOR_NAME_MIN_SIZE,
+                                                                         max = AUTHOR_NAME_MAX_SIZE,
+                                                                         message = SIZE_AUTHOR_NAME
+                                                                 )
                                                                  final String name) {
         final var authorWithBookResponse = authorResponseMapper.toAuthorWithBookResponse(authorService.findByName(name));
         return ResponseEntity.ok(authorWithBookResponse);

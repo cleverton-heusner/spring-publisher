@@ -71,12 +71,12 @@ public class BookServiceImpl implements BookService {
         final var foundAuthor = findAuthor(book.getAuthor());
         book.setAuthor(foundAuthor);
         throwResourceInUseExceptionIfAuthorIsInUse(foundAuthor.getName());
-        throwExistingResourceExceptionIfBookAlreadyExists(book);
+        throwExistingResourceExceptionIfExistingBook(book);
 
         return bookRepository.save(book);
     }
 
-    private void throwExistingResourceExceptionIfBookAlreadyExists(final Book book) {
+    private void throwExistingResourceExceptionIfExistingBook(final Book book) {
         if (existingBookRepository.existsByIsbn(book.getIsbn())) {
             throw new ExistingResourceException(messageService.getMessage(
                     BOOK_WITH_ISBN_ALREADY_EXISTING_MESSAGE,
@@ -118,11 +118,11 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteById(final String id) {
         final long formattedId = idFormatterService.formatId(id);
-        throwResourceNotFoundExceptionIfBookAlreadyExists(formattedId);
+        throwResourceNotFoundExceptionIfExistingBook(formattedId);
         bookRepository.deleteById(formattedId);
     }
 
-    private void throwResourceNotFoundExceptionIfBookAlreadyExists(final long id) {
+    private void throwResourceNotFoundExceptionIfExistingBook(final long id) {
         if (!bookRepository.existsById(id)) {
             throw new ResourceNotFoundException(messageService.getMessage(
                     BOOK_NOT_FOUND_BY_ID_MESSAGE,

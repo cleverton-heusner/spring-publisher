@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.springframework.context.annotation.PropertySource;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static cleverton.heusner.constant.documentation.schema.AuthorSchemaDoc.*;
@@ -21,6 +22,9 @@ public class AuthorWithoutBookResponse {
 
     @Schema(description = AUTHOR_NAME)
     protected String name;
+
+    @Schema(description = AUTHOR_BIRTH_DATE)
+    protected LocalDate birthDate;
 
     @Schema(description = AUTHOR_CREATION_DATE)
     protected LocalDateTime createdDate;

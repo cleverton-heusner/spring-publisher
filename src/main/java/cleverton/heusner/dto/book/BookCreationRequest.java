@@ -11,22 +11,38 @@ import static cleverton.heusner.configuration.message.MessageConfiguration.ENCOD
 import static cleverton.heusner.configuration.message.MessageConfiguration.FILE_FORMAT;
 import static cleverton.heusner.constant.documentation.schema.AuthorSchemaDoc.AUTHOR_NAME;
 import static cleverton.heusner.constant.documentation.schema.BookSchemaDoc.*;
-import static cleverton.heusner.constant.message.validation.AuthorMessageValidation.SIZE_AUTHOR_NAME;
-import static cleverton.heusner.constant.message.validation.BookMessageValidation.SIZE_BOOK_TITLE;
+import static cleverton.heusner.constant.message.validation.AuthorMessageValidation.*;
+import static cleverton.heusner.constant.message.validation.BookMessageValidation.*;
 
 @Schema(description = BOOK_REGISTER)
 @PropertySource(value = SCHEMA_MESSAGES + FILE_FORMAT, encoding = ENCODING)
-public record BookCreationRequest(@Schema(description = BOOK_ISBN, minLength = 13, maxLength = 13,
-                                  example = "9780306406157")
+public record BookCreationRequest(@Schema(
+                                      description = BOOK_ISBN,
+                                      minLength = BOOK_ISBN_SIZE,
+                                      maxLength = BOOK_ISBN_SIZE,
+                                      example = "9780306406157"
+                                  )
                                   @Isbn13
                                   String isbn,
 
-                                  @Schema(description = BOOK_TITLE, minLength = 1, maxLength = 30, example = "The " +
-                                          "Little Prince, THE NEVERENDING STORY, charlie and the chocolate factory")
-                                  @Size(min = 1, max = 30, message = SIZE_BOOK_TITLE)
+                                  @Schema(
+                                          description = BOOK_TITLE,
+                                          minLength = BOOK_TITLE_MIN_SIZE,
+                                          maxLength = BOOK_TITLE_MAX_SIZE,
+                                          example = "The NeverEnding Story"
+                                  )
+                                  @Size(
+                                          min = BOOK_TITLE_MIN_SIZE,
+                                          max = BOOK_TITLE_MAX_SIZE,
+                                          message = SIZE_BOOK_TITLE
+                                  )
                                   String title,
 
-                                  @Schema(description = AUTHOR_NAME, minLength = 1, maxLength = 20, example = "J.K. " +
-                                          "Rowling, TOLKIEN")
+                                  @Schema(
+                                          description = AUTHOR_NAME,
+                                          minLength = AUTHOR_NAME_MIN_SIZE,
+                                          maxLength = AUTHOR_NAME_MAX_SIZE,
+                                          example = "Michael Ende"
+                                  )
                                   @NotBlank(message = SIZE_AUTHOR_NAME)
                                   String authorName) {}

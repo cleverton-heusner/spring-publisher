@@ -6,6 +6,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
+import static cleverton.heusner.constant.message.validation.AuthorMessageValidation.AUTHOR_NAME_MAX_SIZE;
+
 @Entity
 @Table(name = "author")
 @EqualsAndHashCode(callSuper = true)
@@ -17,8 +21,11 @@ public class Author extends Auditable {
     @Setter(AccessLevel.NONE)
     private Long id;
 
-    @Column(nullable = false, length = 20, unique = true)
+    @Column(nullable = false, length = AUTHOR_NAME_MAX_SIZE, unique = true)
     private String name;
+
+    @Column(nullable = false)
+    private LocalDate birthDate;
 
     @OneToOne(mappedBy = "author")
     private Book book;

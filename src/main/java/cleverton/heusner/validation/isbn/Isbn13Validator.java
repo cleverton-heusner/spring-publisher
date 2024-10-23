@@ -1,6 +1,6 @@
 package cleverton.heusner.validation.isbn;
 
-import cleverton.heusner.validation.Validator;
+import cleverton.heusner.validation.ValidatorWithCustomTemplate;
 import io.micrometer.common.util.StringUtils;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -13,7 +13,7 @@ import static cleverton.heusner.constant.message.validation.BookMessageValidatio
 import static cleverton.heusner.constant.message.validation.BookMessageValidation.NOT_BLANK_BOOK_ISBN;
 
 @Component
-public class Isbn13Validator extends Validator implements ConstraintValidator<Isbn13, String> {
+public class Isbn13Validator extends ValidatorWithCustomTemplate implements ConstraintValidator<Isbn13, String> {
 
     private static final Pattern ISBN13_PATTERN = Pattern.compile("^(978|979)\\d{10}$");
     private static final int CHECKSUM_LENGTH = 12;
