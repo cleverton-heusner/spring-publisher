@@ -1,6 +1,7 @@
 package cleverton.heusner.repository.author;
 
-import cleverton.heusner.model.Author;
+import cleverton.heusner.adapter.output.repository.AuthorRepository;
+import cleverton.heusner.adapter.output.entity.AuthorEntity;
 import org.instancio.Instancio;
 import org.instancio.Select;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,13 @@ class AuthorRepositoryTestConfiguration {
     @Autowired
     protected AuthorRepository authorRepository;
 
-    protected Author findAuthorById(final long id) {
+    protected AuthorEntity findAuthorById(final long id) {
         return authorRepository.findById(id).orElse(null);
     }
 
-    protected Author createAuthorWithoutBook() {
-        return authorRepository.save(Instancio.of(Author.class)
-                .set(Select.field(Author::getBook), null)
+    protected AuthorEntity createAuthorWithoutBook() {
+        return authorRepository.save(Instancio.of(AuthorEntity.class)
+                .set(Select.field(AuthorEntity::getBook), null)
                 .create());
     }
 }

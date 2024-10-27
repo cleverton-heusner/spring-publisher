@@ -1,11 +1,11 @@
 package cleverton.heusner.service.book;
 
-import cleverton.heusner.repository.book.BookRepository;
-import cleverton.heusner.repository.book.ExistingBookRepository;
-import cleverton.heusner.service.idformatter.IdFormatterService;
+import cleverton.heusner.port.output.provider.book.BookProvider;
+import cleverton.heusner.domain.service.book.BookServiceImpl;
 import cleverton.heusner.service.ServiceConfiguration;
-import cleverton.heusner.service.author.AuthorService;
-import cleverton.heusner.service.author.AuthorWithBookService;
+import cleverton.heusner.port.input.service.author.AuthorService;
+import cleverton.heusner.port.input.service.author.AuthorWithBookService;
+import cleverton.heusner.port.input.utils.IdFormatterComponent;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
@@ -17,10 +17,7 @@ public class BookServiceTestConfiguration extends ServiceConfiguration {
     protected static final String AUTHOR_IN_USE_MESSAGE = "Autor '%s' já vinculado a livro de ISBN '%s'.";
 
     @Mock
-    protected BookRepository bookRepository;
-
-    @Mock
-    protected ExistingBookRepository existingBookRepository;
+    protected BookProvider bookProvider;
 
     @Mock
     protected AuthorWithBookService authorWithBookService;
@@ -29,7 +26,7 @@ public class BookServiceTestConfiguration extends ServiceConfiguration {
     protected AuthorService authorService;
 
     @Mock
-    protected IdFormatterService idFormatterService;
+    protected IdFormatterComponent idFormatterComponent;
 
     @InjectMocks
     protected BookServiceImpl bookServiceImpl;
