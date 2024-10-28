@@ -5,9 +5,14 @@ import cleverton.heusner.port.shared.MessageComponent;
 import jakarta.validation.ConstraintValidatorContext;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -15,8 +20,6 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class IdValidatorTest {
-
-    private static final int AGE_OF_MAJORITY = 18;
 
     @Mock
     private ConstraintValidatorContext context;
@@ -31,33 +34,30 @@ class IdValidatorTest {
     private IdValidator idValidator;
 
     @Test
-    void whenIdParameterIsPositive_thenIdParameterIsValid() {
+    void whenIdParameterIsPositiveNumber_thenIdParameterValidationReturnTrue() {
 
         // Arrange
-        final String positiveId = "1";
+        final String idAsPositiveNumber = "1";
 
         // Act
-        boolean isAgeValid = idValidator.isValid(positiveId, context);
+        boolean isAgeValid = idValidator.isValid(idAsPositiveNumber, context);
 
         // Assert
         assertThat(isAgeValid).isTrue();
     }
 
-    @Test
-    void whenIdParameterIsZero_thenIdParameterIsInvalid() {
+    @ParameterizedTest
+    @MethodSource("getInvalidIds")
+    void whenIdParameterIsInvalid_thenIdParameterValidationReturnFalse(final String invalidId) {
 
         // Arrange
-        final String zeroId = "0";
-
-        when(messageComponent.getMessage(anyString(), any(Object[].class))).thenReturn(
-                "Id deve ser maior que zero."
-        );
+        when(messageComponent.getMessage(anyString(), any(Object[].class))).thenReturn("Id inválido.");
         doNothing().when(context).disableDefaultConstraintViolation();
         when(context.buildConstraintViolationWithTemplate(anyString())).thenReturn(constraintViolationBuilder);
         when(constraintViolationBuilder.addConstraintViolation()).thenReturn(context);
 
         // Act
-        boolean isAgeValid = idValidator.isValid(zeroId, context);
+        boolean isAgeValid = idValidator.isValid(invalidId, context);
 
         // Assert
         assertThat(isAgeValid).isFalse();
@@ -68,76 +68,15 @@ class IdValidatorTest {
         verify(constraintViolationBuilder).addConstraintViolation();
     }
 
-    @Test
-    void whenIdParameterIsNegative_thenIdParameterIsInvalid() {
-
-        // Arrange
-        final String negativeId = "-1";
-
-        when(messageComponent.getMessage(anyString(), any(Object[].class))).thenReturn(
-                "Id deve ser positivo."
+    private static Stream<Arguments> getInvalidIds() {
+        return Stream.of(
+                Arguments.of("0"),
+                Arguments.of("-1"),
+                Arguments.of("a"),
+                Arguments.of("A"),
+                Arguments.of(""),
+                Arguments.of("  "),
+                Arguments.of((Object) null)
         );
-        doNothing().when(context).disableDefaultConstraintViolation();
-        when(context.buildConstraintViolationWithTemplate(anyString())).thenReturn(constraintViolationBuilder);
-        when(constraintViolationBuilder.addConstraintViolation()).thenReturn(context);
-
-        // Act
-        boolean isAgeValid = idValidator.isValid(negativeId, context);
-
-        // Assert
-        assertThat(isAgeValid).isFalse();
-
-        verify(messageComponent).getMessage(anyString(), any(Object[].class));
-        verify(context).disableDefaultConstraintViolation();
-        verify(context).buildConstraintViolationWithTemplate(anyString());
-        verify(constraintViolationBuilder).addConstraintViolation();
-    }
-
-    @Test
-    void whenIdParameterIsBlank_thenIdParameterIsInvalid() {
-
-        // Arrange
-        final String negativeId = "";
-
-        when(messageComponent.getMessage(anyString(), any(Object[].class))).thenReturn(
-                "Id é obrigatório."
-        );
-        doNothing().when(context).disableDefaultConstraintViolation();
-        when(context.buildConstraintViolationWithTemplate(anyString())).thenReturn(constraintViolationBuilder);
-        when(constraintViolationBuilder.addConstraintViolation()).thenReturn(context);
-
-        // Act
-        boolean isAgeValid = idValidator.isValid(negativeId, context);
-
-        // Assert
-        assertThat(isAgeValid).isFalse();
-
-        verify(messageComponent).getMessage(anyString(), any(Object[].class));
-        verify(context).disableDefaultConstraintViolation();
-        verify(context).buildConstraintViolationWithTemplate(anyString());
-        verify(constraintViolationBuilder).addConstraintViolation();
-    }
-
-    @Test
-    void whenIdParameterIsNull_thenIdParameterIsInvalid() {
-
-        // Arrange
-        when(messageComponent.getMessage(anyString(), any(Object[].class))).thenReturn(
-                "Id é obrigatório."
-        );
-        doNothing().when(context).disableDefaultConstraintViolation();
-        when(context.buildConstraintViolationWithTemplate(anyString())).thenReturn(constraintViolationBuilder);
-        when(constraintViolationBuilder.addConstraintViolation()).thenReturn(context);
-
-        // Act
-        boolean isAgeValid = idValidator.isValid(null, context);
-
-        // Assert
-        assertThat(isAgeValid).isFalse();
-
-        verify(messageComponent).getMessage(anyString(), any(Object[].class));
-        verify(context).disableDefaultConstraintViolation();
-        verify(context).buildConstraintViolationWithTemplate(anyString());
-        verify(constraintViolationBuilder).addConstraintViolation();
     }
 }
