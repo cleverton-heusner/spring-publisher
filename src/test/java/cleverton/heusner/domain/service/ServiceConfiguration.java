@@ -1,4 +1,4 @@
-package cleverton.heusner.service;
+package cleverton.heusner.domain.service;
 
 import cleverton.heusner.port.shared.MessageComponent;
 import org.junit.jupiter.api.extension.ExtendWith;

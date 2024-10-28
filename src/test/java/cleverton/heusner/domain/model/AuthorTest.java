@@ -1,5 +1,6 @@
 package cleverton.heusner.domain.model;
 
+import cleverton.heusner.domain.model.Author;
 import org.instancio.Instancio;
 import org.instancio.Select;
 import org.junit.jupiter.api.Test;

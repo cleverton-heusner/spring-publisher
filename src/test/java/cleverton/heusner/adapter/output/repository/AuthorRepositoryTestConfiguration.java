@@ -1,4 +1,4 @@
-package cleverton.heusner.repository.author;
+package cleverton.heusner.adapter.output.repository;
 
 import cleverton.heusner.adapter.output.repository.AuthorRepository;
 import cleverton.heusner.adapter.output.entity.AuthorEntity;

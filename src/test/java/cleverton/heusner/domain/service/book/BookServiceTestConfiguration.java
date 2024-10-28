@@ -1,8 +1,7 @@
-package cleverton.heusner.service.book;
+package cleverton.heusner.domain.service.book;
 
 import cleverton.heusner.port.output.provider.book.BookProvider;
-import cleverton.heusner.domain.service.book.BookServiceImpl;
-import cleverton.heusner.service.ServiceConfiguration;
+import cleverton.heusner.domain.service.ServiceConfiguration;
 import cleverton.heusner.port.input.service.author.AuthorService;
 import cleverton.heusner.port.input.service.author.AuthorWithBookService;
 import cleverton.heusner.port.input.utils.IdFormatterComponent;

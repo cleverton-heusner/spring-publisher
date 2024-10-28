@@ -1,4 +1,4 @@
-package cleverton.heusner.controller;
+package cleverton.heusner.adapter.input.controller;
 
 import cleverton.heusner.adapter.input.request.BookCreationRequest;
 import cleverton.heusner.adapter.input.response.BookWithAuthorResponse;

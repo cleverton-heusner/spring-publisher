@@ -1,4 +1,4 @@
-package cleverton.heusner.service.book;
+package cleverton.heusner.domain.service.book;
 
 import cleverton.heusner.domain.model.Author;
 import cleverton.heusner.domain.model.Book;

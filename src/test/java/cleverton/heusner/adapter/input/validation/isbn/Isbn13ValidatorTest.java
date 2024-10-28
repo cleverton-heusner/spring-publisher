@@ -1,6 +1,6 @@
-package cleverton.heusner.validation.id;
+package cleverton.heusner.adapter.input.validation.isbn;
 
-import cleverton.heusner.adapter.input.validation.id.IdValidator;
+import cleverton.heusner.adapter.input.validation.isbn.Isbn13Validator;
 import cleverton.heusner.port.shared.MessageComponent;
 import jakarta.validation.ConstraintValidatorContext;
 import org.junit.jupiter.api.Test;
@@ -15,11 +15,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class IdValidatorTest {
+public class Isbn13ValidatorTest {
 
     @Mock
     private ConstraintValidatorContext context;
@@ -31,36 +33,36 @@ class IdValidatorTest {
     private MessageComponent messageComponent;
 
     @InjectMocks
-    private IdValidator idValidator;
+    private Isbn13Validator isbn13Validator;
 
     @Test
-    void whenIdParameterIsPositiveNumber_thenIdParameterValidationReturnTrue() {
+    void whenIdIsbn13IsValid_thenIsbn13ValidationReturnTrue() {
 
         // Arrange
-        final String idAsPositiveNumber = "1";
+        final String validIsbn13 = "9788248141334";
 
         // Act
-        boolean isAgeValid = idValidator.isValid(idAsPositiveNumber, context);
+        boolean isIsbnValid = isbn13Validator.isValid(validIsbn13, context);
 
         // Assert
-        assertThat(isAgeValid).isTrue();
+        assertThat(isIsbnValid).isTrue();
     }
 
     @ParameterizedTest
-    @MethodSource("getInvalidIds")
-    void whenIdParameterIsInvalid_thenIdParameterValidationReturnFalse(final String invalidId) {
+    @MethodSource("getInvalidIsbns")
+    void whenIsbnIsInvalid_thenIsbnValidationReturnFalse(final String invalidIsbn) {
 
         // Arrange
-        when(messageComponent.getMessage(anyString(), any(Object[].class))).thenReturn("Id inválido.");
+        when(messageComponent.getMessage(anyString(), any(Object[].class))).thenReturn("ISBN inválido.");
         doNothing().when(context).disableDefaultConstraintViolation();
         when(context.buildConstraintViolationWithTemplate(anyString())).thenReturn(constraintViolationBuilder);
         when(constraintViolationBuilder.addConstraintViolation()).thenReturn(context);
 
         // Act
-        boolean isAgeValid = idValidator.isValid(invalidId, context);
+        boolean isIsbnValid = isbn13Validator.isValid(invalidIsbn, context);
 
         // Assert
-        assertThat(isAgeValid).isFalse();
+        assertThat(isIsbnValid).isFalse();
 
         verify(messageComponent).getMessage(anyString(), any(Object[].class));
         verify(context).disableDefaultConstraintViolation();
@@ -68,14 +70,11 @@ class IdValidatorTest {
         verify(constraintViolationBuilder).addConstraintViolation();
     }
 
-    private static Stream<Arguments> getInvalidIds() {
+    private static Stream<Arguments> getInvalidIsbns() {
         return Stream.of(
-                Arguments.of("0"),
-                Arguments.of("-1"),
-                Arguments.of("a"),
-                Arguments.of("A"),
+                Arguments.of("9788248141331"),
+                Arguments.of(" 9788248141331 "),
                 Arguments.of(""),
-                Arguments.of("  "),
                 Arguments.of((Object) null)
         );
     }

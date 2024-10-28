@@ -1,4 +1,4 @@
-package cleverton.heusner.service.author;
+package cleverton.heusner.domain.service.author;
 
 import cleverton.heusner.domain.model.Author;
 import cleverton.heusner.adapter.output.entity.AuthorEntity;
