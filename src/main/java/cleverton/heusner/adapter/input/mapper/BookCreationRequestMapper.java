@@ -12,8 +12,6 @@ import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 public interface BookCreationRequestMapper {
 
     @Mappings({
-            @Mapping(source = "isbn", target = "isbn"),
-            @Mapping(source = "title", target = "title"),
             @Mapping(source = "authorName", target = "author.name"),
 
             @Mapping(target = "id", ignore = true),

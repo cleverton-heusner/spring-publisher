@@ -12,9 +12,6 @@ import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 public interface AuthorEntityMapper {
 
     @Mappings({
-            @Mapping(source = "name", target = "name"),
-            @Mapping(source = "birthDate", target = "birthDate"),
-
             @Mapping(target = "book", ignore = true),
             @Mapping(target = "id", ignore = true),
             @Mapping(target = "createdDate", ignore = true),
@@ -22,14 +19,6 @@ public interface AuthorEntityMapper {
     })
     AuthorEntity toEntity(final Author author);
 
-    @Mappings({
-            @Mapping(source = "id", target = "id"),
-            @Mapping(source = "name", target = "name"),
-            @Mapping(source = "birthDate", target = "birthDate"),
-            @Mapping(source = "createdDate", target = "createdDate"),
-            @Mapping(source = "lastModifiedDate", target = "lastModifiedDate"),
-
-            @Mapping(target = "book", ignore = true)
-    })
+    @Mapping(target = "book", ignore = true)
     Author toModel(final AuthorEntity authorEntity);
 }

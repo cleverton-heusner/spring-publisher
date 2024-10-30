@@ -12,9 +12,6 @@ import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 public interface AuthorCreationRequestMapper {
 
     @Mappings({
-            @Mapping(source = "name", target = "name"),
-            @Mapping(source = "birthDate", target = "birthDate"),
-
             @Mapping(target = "id", ignore = true),
             @Mapping(target = "createdDate", ignore = true),
             @Mapping(target = "lastModifiedDate", ignore = true),

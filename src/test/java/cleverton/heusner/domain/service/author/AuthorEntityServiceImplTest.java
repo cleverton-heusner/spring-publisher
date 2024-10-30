@@ -1,14 +1,13 @@
 package cleverton.heusner.domain.service.author;
 
-import cleverton.heusner.domain.model.Author;
 import cleverton.heusner.adapter.output.entity.AuthorEntity;
 import cleverton.heusner.domain.exception.ExistingResourceException;
 import cleverton.heusner.domain.exception.ResourceNotFoundException;
+import cleverton.heusner.domain.model.Author;
 import org.instancio.Instancio;
 import org.instancio.Select;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -60,9 +59,7 @@ public class AuthorEntityServiceImplTest extends AuthorServiceTestConfiguration 
     void when_authorCreationIsRequestedAndNonExistingAuthor_then_authorIsCreated() {
 
         // Arrange
-        final var expectedAuthor = Instancio.of(Author.class)
-                .set(Select.field(Author::getBirthDate), LocalDate.now())
-                .create();
+        final var expectedAuthor = getValidAuthor();
 
         when(authorProvider.findByName(expectedAuthor.getName())).thenReturn(Optional.empty());
         when(authorProvider.register(expectedAuthor)).thenReturn(expectedAuthor);
@@ -159,7 +156,7 @@ public class AuthorEntityServiceImplTest extends AuthorServiceTestConfiguration 
     void when_authorCreationIsRequested_and_existingAuthor_then_throwExistingResourceException() {
 
         // Arrange
-        final var expectedAuthor = Instancio.create(Author.class);
+        final var expectedAuthor = getValidAuthor();
         final String expectedBookNotFoundByIdMessage = String.format(
                 AUTHOR_NOT_FOUND_BY_ID_MESSAGE,
                 expectedAuthor.getId()

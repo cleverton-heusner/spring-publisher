@@ -1,10 +1,15 @@
 package cleverton.heusner.domain.service.author;
 
-import cleverton.heusner.port.output.provider.author.AuthorProvider;
+import cleverton.heusner.domain.model.Author;
 import cleverton.heusner.domain.service.ServiceConfiguration;
 import cleverton.heusner.port.input.utils.IdFormatterComponent;
+import cleverton.heusner.port.output.provider.author.AuthorProvider;
+import org.instancio.Instancio;
+import org.instancio.Select;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+
+import java.time.LocalDate;
 
 public class AuthorServiceTestConfiguration extends ServiceConfiguration {
 
@@ -18,4 +23,10 @@ public class AuthorServiceTestConfiguration extends ServiceConfiguration {
 
     @InjectMocks
     protected AuthorServiceImpl authorServiceImpl;
+
+    protected Author getValidAuthor() {
+        return Instancio.of(Author.class)
+                .set(Select.field(Author::getBirthDate), LocalDate.now())
+                .create();
+    }
 }

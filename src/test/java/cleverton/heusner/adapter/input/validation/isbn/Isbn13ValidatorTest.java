@@ -1,6 +1,5 @@
 package cleverton.heusner.adapter.input.validation.isbn;
 
-import cleverton.heusner.adapter.input.validation.isbn.Isbn13Validator;
 import cleverton.heusner.port.shared.MessageComponent;
 import jakarta.validation.ConstraintValidatorContext;
 import org.junit.jupiter.api.Test;
@@ -18,7 +17,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class Isbn13ValidatorTest {
